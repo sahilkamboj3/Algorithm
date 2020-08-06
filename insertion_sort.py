@@ -1,17 +1,19 @@
 import numpy as np
 
-# arr = [3, 4, 2, 1, 5, 4, 6, 7]
-# arr = [5, 4, 3, 2, 1]
-arr = np.random.randint(low=1, high=100, size=100)
+"""
+In insertion sort, we start at index 1 and move our way down the array. In doing so, at each index, we keep moving the number to the beginning of the array, or as far as we get, comparing that number with the previous index. If the number on the right is smaller, we swap the two numbers.
+"""
 
 
-def insert_sort(arr):
-    for i in range(len(arr)):
-        while arr[i] < arr[i - 1] and i > 0:
-            arr[i], arr[i - 1] = arr[i - 1], arr[i]
-            i -= 1
+def insertion_sort(A):
+    for i in range(len(A) - 1):
+        j = i + 1
+        while j > 0 and A[j] < A[j - 1]:
+            A[j], A[j - 1] = A[j - 1], A[j]
+            j -= 1
 
 
-print(arr)
-insert_sort(arr)
-print(arr)
+A = np.random.randint(low=0, high=50, size=10000)
+print(A)
+insertion_sort(A)
+print(A)

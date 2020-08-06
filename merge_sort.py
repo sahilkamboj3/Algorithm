@@ -1,37 +1,46 @@
-arr = [3, 4, 2, 1, 5, 4, 6, 7]
+import numpy as np
+
+"""
+The idea in merge sort is to keep splitting the array until we have n 1-number arrays, essentially, and use two pointers to put sort them in the final array.
+"""
 
 
-def merge_sort(arr):
-    if len(arr) > 1:
-        mid = len(arr) // 2
+def merge_sort(A):
+    if len(A) > 1:
+        mid = len(A) // 2
 
-        L = arr[:mid]
-        R = arr[mid:]
+        L = A[mid:]
+        R = A[:mid]
 
         merge_sort(L)
         merge_sort(R)
+        sort_arrs(L, R, A)
 
-        i = j = k = 0
 
-        while i < len(L) and j < len(R):
-            if L[i] < R[j]:
-                arr[k] = L[i]
-                i += 1
-            else:
-                arr[k] = R[j]
-                j += 1
-            k += 1
+def sort_arrs(L, R, A):
+    i = j = k = 0
 
-        while i < len(L):
-            arr[k] = L[i]
+    while i < len(L) and j < len(R):
+        if L[i] < R[j]:
+            A[k] = L[i]
             i += 1
-            k += 1
-
-        while j < len(R):
-            arr[k] = R[j]
+        else:
+            A[k] = R[j]
             j += 1
-            k += 1
+        k += 1
+
+    while i < len(L):
+        A[k] = L[i]
+        i += 1
+        k += 1
+
+    while j < len(R):
+        A[k] = R[j]
+        j += 1
+        k += 1
 
 
-merge_sort(arr)
-print(arr)
+A = np.random.randint(low=0, high=50, size=15).tolist()
+print(A)
+merge_sort(A)
+print(A)
