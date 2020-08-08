@@ -20,7 +20,7 @@ class MaxHeap:
                 self.swap(parent_idx, idx)
                 self.heapify_up(parent_idx)
 
-    def fill_heap(self, arr):
+    def build_heap(self, arr):
         for num in arr:
             self.add(num)
 
@@ -56,7 +56,7 @@ A = np.random.randint(low=0, high=50, size=15)
 
 mh = MaxHeap()
 
-mh.fill_heap(A)
+mh.build_heap(A)
 mh.print_heap()
 
 mh.sort()

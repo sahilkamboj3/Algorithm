@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class MinHeap:
     def __init__(self):
         self.heap = []
@@ -18,8 +21,45 @@ class MinHeap:
                 self.swap(parent, idx)
                 self.heapify_up(parent)
 
+    def build_heap(self, nums):
+        for num in nums:
+            self.add(num)
+
     def extract_min(self):
-        pass
+        if self.i < len(self.heap):
+            self.swap(0, len(self.heap) - self.i)
+            self.heapify_down(0)
+            self.i += 1
 
     def heapify_down(self, idx):
-        pass
+        left_child = (2 * idx) + 1
+        right_child = left_child + 1
+        largest_child = None
+
+        if left_child < len(self.heap) - self.i and self.heap[left_child] < self.heap[idx]:
+            largest_child = left_child
+
+        if right_child < len(self.heap) - self.i and self.heap[right_child] < self.heap[left_child]:
+            largest_child = right_child
+
+        if largest_child:
+            self.swap(largest_child, idx)
+            self.heapify_down(largest_child)
+
+    def sort_heap(self):
+        while self.i < len(self.heap):
+            self.extract_min()
+        self.heap.reverse()
+
+    def print_heap(self):
+        print(str(self.heap))
+
+
+mh = MinHeap()
+
+A = np.random.randint(low=0, high=50, size=15).tolist()
+
+mh.build_heap(A)
+mh.sort_heap()
+
+mh.print_heap()
