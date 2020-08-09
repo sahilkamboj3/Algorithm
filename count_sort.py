@@ -1,15 +1,25 @@
+import numpy as np
+
+
 def count_sort(A):
-    output = [0 for i in range(max(A))]
-    counts = [0 for i in range(max(A))]
+    k = max(A)
+    counts = [0 for i in range(k + 1)]  # [0, 1, 1, 1, 1, 1]
 
     for num in A:
-        counts[num - 1] += 1
+        counts[num] += 1
 
-    for i in range(len(A) - 1):
-        counts[i + 1] = counts[i + 1] + counts[i]
+    output = []
 
-    print(counts)
+    for i, count in enumerate(counts):
+        while count > 0:
+            output.append(i)
+            count -= 1
+
+    return output
 
 
-A = [4, 5, 2, 3, 1]
-count_sort(A)
+A = np.random.randint(low=0, high=50, size=15)
+sorted_arr = count_sort(A)
+
+print(A)
+print(sorted_arr)
