@@ -1,7 +1,5 @@
 import numpy as np
 
-A = np.random.randint(low=0, high=100, size=15)
-
 
 def quick_sort(A):
     _quick_sort(A, 0, len(A) - 1)
@@ -15,19 +13,20 @@ def _quick_sort(A, low, high):
 
 
 def partition(A, low, high):
-    i = low - 1
+    i = low
     pivot = A[high]
 
     for j in range(low, high):
         if A[j] < pivot:
-            i += 1
             A[i], A[j] = A[j], A[i]
+            i += 1
 
-    A[i + 1], A[high] = A[high], A[i + 1]
+    A[i], A[high] = A[high], A[i]
 
-    return i + 1
+    return i
 
 
+A = np.random.randint(low=0, high=100, size=15)
 print(A)
 quick_sort(A)
 print(A)

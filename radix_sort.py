@@ -1,5 +1,6 @@
-A = [170, 45, 75, 90, 802, 24, 2, 66]
-print(len(A))
+import numpy as np
+
+A = np.random.randint(low=0, high=500, size=10)
 
 
 def radix_sort(A):
@@ -27,7 +28,7 @@ def count_sort(A, place_val):
     for i in range(len(counts)):
         counts[i] -= 1
 
-    for num in A:
+    for num in reversed(A):
         digit = (num // place_val) % 10
         output[counts[digit]] = num
         counts[digit] -= 1
@@ -36,4 +37,6 @@ def count_sort(A, place_val):
     return output
 
 
-print(radix_sort(A))
+print(A)
+A = radix_sort(A)
+print(A)
