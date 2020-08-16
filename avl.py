@@ -61,14 +61,14 @@ class AVL:
                 if not successor.left:
                     self.left_rot(successor)
                 new_parent = self.right_rot(node)
-                new_parent.right.height -= 2
 
             elif balance < -1:
                 successor = node.right
                 if not successor.right:
                     self.right_rot(successor)
                 new_parent = self.left_rot(node)
-                new_parent.left.height -= 2
+
+            self.adjust_heights(node)
 
             if new_parent:
                 if new_parent.parent:
@@ -78,42 +78,49 @@ class AVL:
                 self.fix_balance(node.parent)
 
     def right_rot(self, node):
-        if node:
-            predecessor = node.parent
-            successor = node.left
+        successor = node.left
+        parent = node.parent
+        successor.parent = parent
 
-            if predecessor:
-                predecessor.left = successor
-                successor.parent = predecessor
-            else:
-                self.root = successor
-                successor.parent = None
+        if parent is None:
+            self.root = successor
+        else:
+            if parent.left is node:
+                parent.left = successor
+            elif parent.right is node:
+                parent.right = successor
 
-            new_left = successor.right
-            successor.right = node
-            node.parent = successor
-            node.left = new_left
+        node.left = successor.right
 
-            return successor
+        if node.left is not None:
+            node.left.parent = node
+        successor.right = node
+        node.parent = successor
+
+        self.adjust_heights(node)
+        self.adjust_heights(successor)
 
     def left_rot(self, node):
-        if node:
-            predecessor = node.parent
-            successor = node.right
+        successor = node.right
+        parent = node.parent
+        successor.parent = parent
 
-            if predecessor:
-                predecessor.right = successor
-                successor.parent = predecessor
-            else:
-                self.root = successor
-                successor.parent = None
+        if successor.parent is None:
+            self.root = successor
+        else:
+            if parent.left is node:
+                parent.left = successor
+            elif parent.right is node:
+                parent.right = successor
 
-            new_right = successor.left
-            successor.left = node
-            node.parent = successor
-            node.right = new_right
+        node.right = successor.left
+        if node.right is not None:
+            node.right.parent = node
+        successor.left = node
+        node.parent = successor
 
-            return successor
+        self.adjust_heights(node)
+        self.adjust_heights(successor)
 
     def print_avl(self):
         cur = self.root
@@ -129,14 +136,10 @@ class AVL:
         return string
 
 
-# A = [50, 25, 75, 67, 100, 12, 37, 10, 9]
-# A = [1, 2, 3, 4, 5, 50, 75, 67, 100]
 A = np.random.randint(low=0, high=50, size=10)
-
 avl = AVL()
 
 for num in A:
-    print(f'num: {num}')
     avl.insert(num)
 
 avl.print_avl()
