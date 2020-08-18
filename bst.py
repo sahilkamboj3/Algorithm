@@ -9,7 +9,7 @@ class Node:
         self.parent = None
 
 
-class BST:
+class BinarySearchTree:
     def __init__(self):
         self.head = None
 
@@ -129,24 +129,24 @@ class BST:
         return node.val, node
 
 
-bst = BST()
+bst = BinarySearchTree()
 traversal = 'inorder'
 
-# A = np.random.randint(low=0, high=25, size=5)
+A = np.random.randint(low=0, high=25, size=5)
 # print(A)
 
-A = [4, 7, 2, 5, 6]
+# A = [4, 7, 2, 5, 6]
 
-for num in A:
-    bst.add(num)
+# for num in A:
+#     bst.add(num)
 
-bst.print_bst(traversal)
-print(bst.head.val)
+# bst.print_bst(traversal)
+# print(bst.head.val)
 
-bst.delete(4)
+# bst.delete(4)
 
-bst.print_bst(traversal)
-print(bst.head.val)
+# bst.print_bst(traversal)
+# print(bst.head.val)
 
 # for i, num in enumerate(A):
 #     print(f'{num}: {bst.find(num)}')
